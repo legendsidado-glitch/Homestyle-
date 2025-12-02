@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homestyle Dinner! 8D Offical Web</title>
+    <!-- Load Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Setting the default font to Inter, with fallbacks */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for the rustic, home-style look */
+        .header-bg {
+            background-image: url('https://placehold.co/1920x800/8B4513/FFFFFF?text=Warm+Kitchen+Background');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .text-shadow-cozy {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+    </style>
+    <!-- Preloading Inter font for better performance (optional, but good practice) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-amber-50 text-gray-800">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white/90 backdrop-blur-sm shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Title -->
+                <a href="#" class="flex-shrink-0">
+                    <span class="text-2xl font-bold text-red-700 tracking-wider">HomeStyle</span>
+                    <span class="text-2xl font-light text-gray-800">Dinner</span>
+                </a>
+
+                <!-- Navigation Links (Hidden on mobile, shown on desktop) -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#menu" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg">Our Menu</a>
+                    <a href="#featured" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg">Featured Dishes</a>
+                    <a href="#story" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg">Our Story</a>
+                    <a href="#contact" class="bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg hover:bg-red-800 transition duration-150 ease-in-out shadow-lg">Order Now</a>
+                </div>
+
+                <!-- Mobile Menu Button (Hamburger) -->
+                <div class="sm:hidden">
+                    <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-lg text-gray-500 hover:text-red-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500" aria-controls="mobile-menu" aria-expanded="false">
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h4" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="sm:hidden" id="mobile-menu" style="display:none;">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#menu" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium">Our Menu</a>
+                <a href="#featured" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium">Featured Dishes</a>
+                <a href="#story" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium">Our Story</a>
+                <a href="#contact" class="bg-red-700 text-white block px-3 py-2 rounded-lg text-base font-medium mt-2">Order Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="header-bg h-screen flex items-center justify-center text-center">
+        <!-- Overlay for better text readability -->
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="z-10 max-w-4xl p-6 md:p-12">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 text-shadow-cozy">
+                The Comfort of Home, Delivered.
+            </h1>
+            <p class="text-xl md:text-2xl text-amber-100 mb-8 font-light text-shadow-cozy">
+                Handcrafted meals, just like Mom used to make. Wholesome, delicious, and ready for your table.
+            </p>
+            <a href="#menu" class="inline-block bg-red-700 text-white font-bold py-4 px-10 rounded-full text-lg uppercase tracking-wider hover:bg-red-800 transition duration-300 transform hover:scale-105 shadow-xl">
+                Explore The Menu
+            </a>
+        </div>
+    </header>
+
+    <!-- Featured Dishes Section -->
+    <section id="featured" class="py-16 md:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Family Favorites</h2>
+            <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+                Discover the dishes that warm the heart and bring everyone to the table.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- Dish 1: Classic Meatloaf -->
+                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Classic+Meatloaf" alt="Classic Meatloaf" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Grandma's Meatloaf</h3>
+                        <p class="text-gray-600 mb-4">A savory, tender meatloaf baked to perfection and glazed with our signature tomato sauce. Served with creamy mashed potatoes.</p>
+                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Dish 2: Chicken Pot Pie -->
+                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Comfort+Pot+Pie" alt="Chicken Pot Pie" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Buttery Chicken Pot Pie</h3>
+                        <p class="text-gray-600 mb-4">Flaky, golden crust covering a rich filling of tender chicken, carrots, and peas in a creamy sauce. Pure comfort.</p>
+                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Dish 3: Apple Crumble -->
+                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Apple+Crumble+Dessert" alt="Apple Crumble" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Warm Apple Crumble</h3>
+                        <p class="text-gray-600 mb-4">Sweet, tart apples topped with a crunchy oat and cinnamon crumble. The perfect dessert to end a comforting meal.</p>
+                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section id="story" class="py-16 md:py-24 bg-red-800 text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 md:flex md:items-center md:space-x-12">
+
+            <!-- Story Text -->
+            <div class="md:w-1/2">
+                <h2 class="text-4xl font-bold mb-4 text-amber-100">Our Story: Food is Family</h2>
+                <p class="text-lg mb-4 opacity-90">
+                    HomeStyle Dinner started in a small kitchen with a big idea: to share the feeling of a Sunday family meal with everyone. We believe that the best food is made with simple, high-quality ingredients and a whole lot of heart.
+                </p>
+                <p class="text-lg mb-6 opacity-90">
+                    Every recipe is an heirloom, passed down through generations. When you choose HomeStyle Dinner, you're not just getting a meal—you're getting a tradition of comfort and care.
+                </p>
+                <a href="#contact" class="inline-block bg-white text-red-800 font-semibold py-3 px-8 rounded-lg hover:bg-gray-200 transition duration-300 shadow-lg">
+                    Read Our Full Manifesto
+                </a>
+            </div>
+
+            <!-- Placeholder Image for Story -->
+            <div class="md:w-1/2 mt-10 md:mt-0">
+                <img src="https://placehold.co/800x600/FFFFFF/8B4513?text=Handwritten+Recipe+Book" alt="Handwritten Recipe Book" class="rounded-xl shadow-2xl w-full">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-900 text-gray-300 py-10 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-10 mb-10">
+
+                <!-- Company Info -->
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-4">HomeStyle Dinner</h4>
+                    <p class="text-sm">Delivering comfort to your door.</p>
+                    <p class="text-sm mt-2">123 Cozy Lane, Hearth City, USA</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#menu" class="text-sm hover:text-red-500 transition">Full Menu</a></li>
+                        <li><a href="#featured" class="text-sm hover:text-red-500 transition">Specials</a></li>
+                        <li><a href="#" class="text-sm hover:text-red-500 transition">Careers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Us -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:hello@homestyledinner.com" class="text-sm hover:text-red-500 transition">Email Us</a></li>
+                        <li><a href="tel:1800555HOME" class="text-sm hover:text-red-500 transition">(800) 555-HOME</a></li>
+                        <!-- Social Icons Placeholder -->
+                        <li class="flex space-x-3 pt-2">
+                            <a href="#" class="text-xl hover:text-red-500 transition" aria-label="Facebook">
+                                <span class="fab fa-facebook-f">&#xf09a;</span>
+                            </a>
+                            <a href="#" class="text-xl hover:text-red-500 transition" aria-label="Instagram">
+                                <span class="fab fa-instagram">&#xf16d;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Newsletter</h4>
+                    <p class="text-sm mb-3">Get our weekly menu updates.</p>
+                    <form onsubmit="event.preventDefault(); alert('Thank you for subscribing!');" class="flex flex-col space-y-3">
+                        <input type="email" placeholder="Your Email" required class="p-3 rounded-lg text-gray-900 border border-gray-700 focus:ring-red-500 focus:border-red-500">
+                        <button type="submit" class="bg-red-700 text-white font-semibold py-3 rounded-lg hover:bg-red-600 transition duration-300">Subscribe</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-sm text-gray-500 pt-5">
+                &copy; <span id="year">2024</span> Home Style Dinner. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome (for social icons) - Loaded at the end -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <!-- Simple JavaScript for Mobile Menu and Footer Year -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
+                mobileMenu.style.display = isExpanded ? 'none' : 'block';
+            });
+
+            // Set current year in the footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
