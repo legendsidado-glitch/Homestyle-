@@ -3,48 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homestyle on Wheels! 8D Offical Web</title>
+    <title>Home Style Dinner - Comfort Food Made with Love</title>
     <!-- Load Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Setting the default font to Inter, with fallbacks */
         body {
             font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
         /* Custom styles for the rustic, home-style look */
         .header-bg {
-            background-image: url('https://chatgpt.com/backend-api/estuary/content?id=file_00000000439c71f483813080e9fa3ab1&ts=490186&p=fs&cid=1&sig=c0353d40bd4bc7ede255ddeb036bf519522b0ae842c03b264d9d62509e60a6b7&v=0');
-            background-size: cover;
-            background-position: center;
+            /* UPDATED: Solid light red background */
+            background-color: #F8DCDC; 
             position: relative;
         }
         .text-shadow-cozy {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            /* Adjusted shadow for better contrast against the lighter background */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+        /* Style for the success message (initially hidden) */
+        #newsletter-success {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        #newsletter-success.show {
+            opacity: 1;
+        }
+
+        /* Modal Overlay Custom Styling */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* DANGEROUS/STRIKING LOGO FONT STYLE */
+        .dangerous-font {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            letter-spacing: 0.15em;
+        }
+
+        /* --- PRELOADER STYLES --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #A0522D; /* Sienna/earthy color */
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.5s ease-out; /* Main fade-out transition */
+        }
+        
+        .preloader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        /* Animation for the "cracking and falling" effect */
+        .loader-shatter {
+            animation: shatter-pieces 1.5s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+        }
+        
+        @keyframes shatter-pieces {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+            40% { transform: translateY(-5px) rotate(-1deg) scale(1.05); opacity: 1; } /* Little hop for the crack */
+            100% { 
+                /* Dramatic fall and rotation */
+                transform: translateY(200vh) rotate(30deg) scale(0.5); 
+                opacity: 0; 
+            }
+        }
+        
+        .loading-text-fade {
+            animation: text-fade-out 0.5s 1s forwards; /* Fade out later */
+        }
+        
+        @keyframes text-fade-out {
+            to { opacity: 0; }
         }
     </style>
-    <!-- Preloading Inter font for better performance (optional, but good practice) -->
+    <!-- Preloading Inter font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body class="bg-amber-50 text-gray-800">
 
+    <!-- PRELOADER SCREEN -->
+    <div id="preloader">
+        <div class="preloader-content text-white p-8 rounded-xl flex flex-col items-center">
+             <!-- Logo/Title from Nav for consistency -->
+            <div id="preloader-logo" class="flex items-center space-x-1 mb-4">
+                <!-- SVG Icon -->
+                <svg class="w-12 h-12 text-amber-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 21c3.866 0 7-3.134 7-7V4a1 1 0 0 0-2 0v10c0 2.761-2.239 5-5 5s-5-2.239-5-5V4a1 1 0 0 0-2 0v10c0 3.866 3.134 7 7 7z"/>
+                    <path d="M7 18V4m10 14V4m-5 14V4"/>
+                    <path class="text-amber-500 fill-current stroke-none" d="M12 2.5a.5.5 0 0 0-.447.258l-1.85 3.018a.5.5 0 0 0 .447.724h3.694a.5.5 0 0 0 .447-.724l-1.85-3.018A.5.5 0 0 0 12 2.5z" transform="translate(0, 5)" />
+                </svg>
+                <!-- Text Logo -->
+                <span class="text-4xl md:text-5xl font-extrabold text-white uppercase tracking-widest dangerous-font">HomeStyle</span>
+                <span class="text-4xl md:text-5xl font-light text-red-300 uppercase dangerous-font">Dinner</span>
+            </div>
+            <p id="loading-text" class="text-xl text-amber-200">Gathering ingredients...</p>
+        </div>
+    </div>
+    <!-- END PRELOADER SCREEN -->
+
     <!-- Navigation Bar -->
     <nav class="bg-white/90 backdrop-blur-sm shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo/Title -->
-                <a href="#" class="flex-shrink-0">
-                    <span class="text-2xl font-bold text-red-700 tracking-wider">HomeStyle</span>
-                    <span class="text-2xl font-light text-gray-800">on Wheels</span>
-                </a>
+                
+                <!-- Logo/Title and Info Button -->
+                <div class="flex items-center space-x-3">
+                    <a href="#" class="flex-shrink-0 flex items-center space-x-1 smooth-scroll">
+                        <!-- Inline SVG Logo: Fork, Spoon, and Heart -->
+                        <svg class="w-8 h-8 text-red-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Spoon -->
+                            <path d="M12 21c3.866 0 7-3.134 7-7V4a1 1 0 0 0-2 0v10c0 2.761-2.239 5-5 5s-5-2.239-5-5V4a1 1 0 0 0-2 0v10c0 3.866 3.134 7 7 7z"/>
+                            <!-- Fork -->
+                            <path d="M7 18V4m10 14V4m-5 14V4"/>
+                            <!-- Amber accent for 'HomeStyle' -->
+                            <path class="text-amber-500 fill-current stroke-none" d="M12 2.5a.5.5 0 0 0-.447.258l-1.85 3.018a.5.5 0 0 0 .447.724h3.694a.5.5 0 0 0 .447-.724l-1.85-3.018A.5.5 0 0 0 12 2.5z" transform="translate(0, 5)" />
+                        </svg>
+
+                        <!-- Text part of the logo (Dangerous Style) -->
+                        <span class="text-2xl md:text-3xl font-extrabold text-gray-900 uppercase tracking-widest dangerous-font">HomeStyle</span>
+                        <span class="text-2xl md:text-3xl font-light text-red-700 uppercase dangerous-font">Dinner</span>
+                    </a>
+
+                    <!-- INFO BUTTON -->
+                    <button onclick="openModal('info-modal')" class="w-8 h-8 flex items-center justify-center rounded-full bg-red-700 text-white hover:bg-red-800 transition shadow-md focus:outline-none focus:ring-2 focus:ring-red-500" aria-label="Application Information">
+                        <span class="font-bold text-lg leading-none pt-0.5">i</span>
+                    </button>
+                </div>
 
                 <!-- Navigation Links (Hidden on mobile, shown on desktop) -->
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#menu" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg">Our Menu</a>
-                    <a href="#featured" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg">Featured Dishes</a>
-                    <a href="#story" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg">Our Story</a>
-                    <a href="#contact" class="bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg hover:bg-red-800 transition duration-150 ease-in-out shadow-lg">Order Now</a>
+                    <a href="#menu" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg smooth-scroll">Our Menu</a>
+                    <a href="#featured" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg smooth-scroll">Featured Dishes</a>
+                    <a href="#story" class="text-gray-600 hover:text-red-700 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out rounded-lg smooth-scroll">Our Story</a>
+                    <!-- Order Now Button -->
+                    <a href="#contact" class="bg-red-700 text-white px-4 py-2 text-sm font-medium rounded-lg hover:bg-red-800 transition duration-150 ease-in-out shadow-lg smooth-scroll">Order Now</a>
                 </div>
 
                 <!-- Mobile Menu Button (Hamburger) -->
@@ -61,37 +176,89 @@
         <!-- Mobile Menu (Hidden by default) -->
         <div class="sm:hidden" id="mobile-menu" style="display:none;">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#menu" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium">Our Menu</a>
-                <a href="#featured" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium">Featured Dishes</a>
-                <a href="#story" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium">Our Story</a>
-                <a href="#contact" class="bg-red-700 text-white block px-3 py-2 rounded-lg text-base font-medium mt-2">Order Now</a>
+                <a href="#menu" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium smooth-scroll">Our Menu</a>
+                <a href="#featured" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium smooth-scroll">Featured Dishes</a>
+                <a href="#story" class="text-gray-600 hover:bg-red-50 hover:text-red-700 block px-3 py-2 rounded-lg text-base font-medium smooth-scroll">Our Story</a>
+                <a href="#contact" class="bg-red-700 text-white block px-3 py-2 rounded-lg text-base font-medium mt-2 smooth-scroll">Order Now</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <header class="header-bg h-screen flex items-center justify-center text-center">
-        <!-- Overlay for better text readability -->
-        <div class="absolute inset-0 bg-black/40"></div>
+        <!-- Overlay for better text readability (Adjusted to be lighter/more subtle on the plain background) -->
+        <div class="absolute inset-0 bg-black/10"></div>
         <div class="z-10 max-w-4xl p-6 md:p-12">
-            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4 text-shadow-cozy">
-                Traditional Food.
+            <!-- Adjusted text color and shadow for better contrast against the lighter background -->
+            <h1 class="text-5xl md:text-7xl font-extrabold text-red-900 mb-4 text-shadow-cozy">
+                The Comfort of Home, Delivered.
             </h1>
-            <p class="text-xl md:text-2xl text-amber-100 mb-8 font-light text-shadow-cozy">
-                Popular Food.
+            <p class="text-xl md:text-2xl text-red-700 mb-8 font-semibold text-shadow-cozy">
+                Handcrafted meals, just like Mom used to make. Wholesome, delicious, and ready for your table.
             </p>
-            <a href="#menu" class="inline-block bg-red-700 text-white font-bold py-4 px-10 rounded-full text-lg uppercase tracking-wider hover:bg-red-800 transition duration-300 transform hover:scale-105 shadow-xl">
-                And More!
-            </a>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
+                <!-- Explore Menu Button -->
+                <a href="#menu" class="inline-block bg-red-700 text-white font-bold py-4 px-10 rounded-full text-lg uppercase tracking-wider hover:bg-red-800 transition duration-300 transform hover:scale-105 shadow-xl smooth-scroll">
+                    Explore The Menu
+                </a>
+
+                <!-- Like Button (NEW) -->
+                <div class="flex flex-col items-center">
+                    <button id="like-button" class="flex items-center space-x-2 bg-white text-red-700 border-2 border-red-700 font-bold py-3 px-8 rounded-full text-lg hover:bg-red-100 transition duration-300 shadow-xl" disabled>
+                        <!-- Thumbs Up SVG Icon -->
+                        <svg id="like-icon" class="w-6 h-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.76l1.24-7.27A2 2 0 0 0 16.5 9H14zM7 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h3v7z"/>
+                        </svg>
+                        <span id="like-text">Like</span>
+                    </button>
+                    <!-- Adjusted text color for the lighter background -->
+                    <p id="like-count-display" class="text-sm text-red-900 mt-2 font-medium text-shadow-cozy">Loading likes...</p>
+                </div>
+            </div>
         </div>
     </header>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 md:py-24 bg-red-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Full Menu</h2>
+            <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+                From slow-cooked stews to fresh baked goods, find your next favorite meal.
+            </p>
+            <!-- Mock Menu Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <!-- Example Menu Item 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-red-700">
+                    <h3 class="text-xl font-semibold text-gray-800">Homestyle Beef Stew</h3>
+                    <p class="text-sm text-gray-500 mt-1 mb-3">Slow-cooked beef in a rich gravy with root vegetables.</p>
+                    <span class="text-lg font-bold text-red-700">$14.99</span>
+                </div>
+                <!-- Example Menu Item 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-red-700">
+                    <h3 class="text-xl font-semibold text-gray-800">Mac & Cheese Bake</h3>
+                    <p class="text-sm text-gray-500 mt-1 mb-3">Creamy four-cheese sauce topped with a crunchy panko crust.</p>
+                    <span class="text-lg font-bold text-red-700">$12.50</span>
+                </div>
+                <!-- Example Menu Item 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-red-700">
+                    <h3 class="text-xl font-semibold text-gray-800">Fresh Baked Sourdough</h3>
+                    <p class="text-sm text-gray-500 mt-1 mb-3">A whole loaf of fresh, tangy sourdough bread.</p>
+                    <span class="text-lg font-bold text-red-700">$7.00</span>
+                </div>
+            </div>
+            <a href="#contact" class="mt-10 inline-block text-red-700 border-2 border-red-700 font-bold py-3 px-8 rounded-lg hover:bg-red-700 hover:text-white transition duration-300 shadow-lg smooth-scroll">
+                Place Your Order Now
+            </a>
+        </div>
+    </section>
 
     <!-- Featured Dishes Section -->
     <section id="featured" class="py-16 md:py-24 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Dishes</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Family Favorites</h2>
             <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-                Discover Our 8D Food Selection
+                Discover the dishes that warm the heart and bring everyone to the table.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -100,94 +267,35 @@
                 <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
                     <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Classic+Meatloaf" alt="Classic Meatloaf" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Meatloaf 12.49 </h3>
-                        <p class="text-gray-600 mb-4">A savory, tender meatloaf baked to perfection and glazed with our signature tomato sauce!.</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
+                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Grandma's Meatloaf</h3>
+                        <p class="text-gray-600 mb-4">A savory, tender meatloaf baked to perfection and glazed with our signature tomato sauce.</p>
+                        <!-- Button updated to open the modal -->
+                        <button onclick="openDishModal('meatloaf')" class="text-red-700 font-medium hover:text-red-900 transition duration-150 p-2 rounded-lg bg-red-100 hover:bg-red-200">View Details &rarr;</button>
                     </div>
                 </div>
 
                 <!-- Dish 2: Chicken Pot Pie -->
                 <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Mashed+Potatoes" alt="Chicken Pot Pie" class="w-full h-48 object-cover">
+                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Comfort+Pot+Pie" alt="Chicken Pot Pie" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Mashed Potatoes 5.99</h3>
-                        <p class="text-gray-600 mb-4">A Sidedish, Fitting Pefect With Meatloaf, or just Enjoy It Like This</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
+                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Buttery Chicken Pot Pie</h3>
+                        <p class="text-gray-600 mb-4">Flaky, golden crust covering a rich filling of tender chicken, carrots, and peas in a creamy sauce.</p>
+                        <!-- Button updated to open the modal -->
+                        <button onclick="openDishModal('potpie')" class="text-red-700 font-medium hover:text-red-900 transition duration-150 p-2 rounded-lg bg-red-100 hover:bg-red-200">View Details &rarr;</button>
                     </div>
                 </div>
 
                 <!-- Dish 3: Apple Crumble -->
                 <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Apple+Pie" alt="Apple Pie" class="w-full h-48 object-cover">
+                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Apple+Crumble+Dessert" alt="Apple Crumble" class="w-full h-48 object-cover">
                     <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Apple Pie 9.49</h3>
-                        <p class="text-gray-600 mb-4">Sweet, tart apples topped with a crunchy oat and cinnamon crumble. The perfect dessert to end a comforting meal.</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
+                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Warm Apple Crumble</h3>
+                        <p class="text-gray-600 mb-4">Sweet, tart apples topped with a crunchy oat and cinnamon crumble. The perfect dessert.</p>
+                        <!-- Button updated to open the modal -->
+                        <button onclick="openDishModal('crumble')" class="text-red-700 font-medium hover:text-red-900 transition duration-150 p-2 rounded-lg bg-red-100 hover:bg-red-200">View Details &rarr;</button>
                     </div>
                 </div>
 
-                <!-- Drink 0: Water -->
-                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Water" alt="Water" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Water 0.99</h3>
-                        <p class="text-gray-600 mb-4">Its Just Water, But It Still Keeps You Fresh!</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Drink 1: Orange Juice -->
-                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Orange+Juice" alt="Orange Juice" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Orange Juice 2.49</h3>
-                        <p class="text-gray-600 mb-4">a Sweet Orane Juice, Which fits Perectly with our other Dishes.</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Drink 2: Coca Cola -->
-                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Coca+Cola" alt="Coca Cola" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Coca Cola 1.99</h3>
-                        <p class="text-gray-600 mb-4">a Yummy Coke, Being Tasty While Keeping you Cool</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Drink 3: Ice Tea -->
-                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Ice+Tea" alt="Ice Tea" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Ice Tea 1.49</h3>
-                        <p class="text-gray-600 mb-4">Most Teas Are Hot, This One Is Cold</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
-                    </div>
-                </div>
-                
-                <!-- Drink 4: Whiskey -->
-                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Whiskey" alt="Whiskey" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Whiskey 4.49</h3>
-                        <p class="text-gray-600 mb-4">Basicly a Whiskey, But Tastes Waay Better: 18+</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
-                    </div>
-                </div>
-
-                <!-- Drink 5: Beer -->
-                <div class="bg-amber-50 rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                    <img src="https://placehold.co/600x400/D2B48C/5A5A5A?text=Beer" alt="Beer" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-semibold text-red-700 mb-2">Beer 4.99</h3>
-                        <p class="text-gray-600 mb-4">A Top Quality Beer, Keeps You Chill And Cold: 18+</p>
-                        <a href="#menu" class="text-red-700 font-medium hover:text-red-900 transition duration-150">View Details &rarr;</a>
-                    </div>
-                </div>
-
-                
-              
             </div>
         </div>
     </section>
@@ -198,27 +306,27 @@
 
             <!-- Story Text -->
             <div class="md:w-1/2">
-                <h2 class="text-4xl font-bold mb-4 text-amber-100">Handmade and Traditionaly Cooked</h2>
+                <h2 class="text-4xl font-bold mb-4 text-amber-100">Our Story: Food is Family</h2>
                 <p class="text-lg mb-4 opacity-90">
-                    Attention! : This is only a Secondary Test Version Selling No Real Products!
+                    HomeStyle Dinner started in a small kitchen with a big idea: to share the feeling of a Sunday family meal with everyone. We believe that the best food is made with simple, high-quality ingredients and a whole lot of heart.
                 </p>
                 <p class="text-lg mb-6 opacity-90">
-                    Drinks And More Will Come Soon, Nad All Our Prosucts Are Made With Love.
+                    Every recipe is an heirloom, passed down through generations. When you choose HomeStyle Dinner, you're not just getting a meal—you're getting a tradition of comfort and care.
                 </p>
-                <a href="#contact" class="inline-block bg-white text-red-800 font-semibold py-3 px-8 rounded-lg hover:bg-gray-200 transition duration-300 shadow-lg">
-                    Made By: Allan, Tanya, Hussain, Amani and Ayman
+                <a href="#story" class="inline-block bg-white text-red-800 font-semibold py-3 px-8 rounded-lg hover:bg-gray-200 transition duration-300 shadow-lg" onclick="openModal('info-modal')">
+                    Read Our Full Manifesto
                 </a>
             </div>
 
             <!-- Placeholder Image for Story -->
             <div class="md:w-1/2 mt-10 md:mt-0">
-                <img src="https://placehold.co/800x600/FFFFFF/8B4513?text=Handwritten+Recipe+Book" alt="8D Class Web" class="rounded-xl shadow-2xl w-full">
+                <img src="https://placehold.co/800x600/FFFFFF/8B4513?text=Handwritten+Recipe+Book" alt="Handwritten Recipe Book" class="rounded-xl shadow-2xl w-full">
             </div>
 
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer / Contact Section -->
     <footer id="contact" class="bg-gray-900 text-gray-300 py-10 md:py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-gray-700 pb-10 mb-10">
@@ -226,17 +334,17 @@
                 <!-- Company Info -->
                 <div>
                     <h4 class="text-xl font-bold text-white mb-4">HomeStyle Dinner</h4>
-                    <p class="text-sm">Our 8D Product Web</p>
-                    <p class="text-sm mt-2">Mercator Gymnasium</p>
+                    <p class="text-sm">Delivering comfort to your door.</p>
+                    <p class="text-sm mt-2">User ID: <span id="current-user-id" class="text-red-400 text-xs break-all">Authenticating...</span></p>
                 </div>
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Why A Web?</h4>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
                     <ul class="space-y-2">
-                        <li><a href="#menu" class="text-sm hover:text-red-500 transition">For Fun/a></li>
-                        <li><a href="#featured" class="text-sm hover:text-red-500 transition">Better Grade</a></li>
-                        <li><a href="#" class="text-sm hover:text-red-500 transition">Boredom</a></li>
+                        <li><a href="#menu" class="text-sm hover:text-red-500 transition smooth-scroll">Full Menu</a></li>
+                        <li><a href="#featured" class="text-sm hover:text-red-500 transition smooth-scroll">Specials</a></li>
+                        <li><a href="#" class="text-sm hover:text-red-500 transition">Careers (Placeholder)</a></li>
                     </ul>
                 </div>
 
@@ -244,14 +352,14 @@
                 <div>
                     <h4 class="text-lg font-semibold text-white mb-4">Connect</h4>
                     <ul class="space-y-2">
-                        <li><a href="mailto:Legend.Sidado@gmail.com" class="text-sm hover:text-red-500 transition">Email Us</a></li>
-                        <li><a href="tel:Nothing" class="text-sm hover:text-red-500 transition">Number: 2024 3724 6820 12</a></li>
+                        <li><a href="mailto:hello@homestyledinner.com" class="text-sm hover:text-red-500 transition">Email Us</a></li>
+                        <li><a href="tel:1800555HOME" class="text-sm hover:text-red-500 transition">(800) 555-HOME</a></li>
                         <!-- Social Icons Placeholder -->
                         <li class="flex space-x-3 pt-2">
-                            <a href="#" class="text-xl hover:text-red-500 transition" aria-label="Facebook">
+                            <a href="https://facebook.com" target="_blank" class="text-xl hover:text-red-500 transition" aria-label="Facebook">
                                 <span class="fab fa-facebook-f">&#xf09a;</span>
                             </a>
-                            <a href="#" class="text-xl hover:text-red-500 transition" aria-label="Instagram">
+                            <a href="https://instagram.com" target="_blank" class="text-xl hover:text-red-500 transition" aria-label="Instagram">
                                 <span class="fab fa-instagram">&#xf16d;</span>
                             </a>
                         </li>
@@ -260,12 +368,16 @@
 
                 <!-- Newsletter Signup -->
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-4">Login</h4>
-                    <p class="text-sm mb-3">We Created this Mid Class of Boredom :), would be Nice.</p>
-                    <form onsubmit="event.preventDefault(); alert('Thank you for subscribing!');" class="flex flex-col space-y-3">
-                        <input type="email" placeholder="Your Email" required class="p-3 rounded-lg text-gray-900 border border-gray-700 focus:ring-red-500 focus:border-red-500">
+                    <h4 class="text-lg font-semibold text-white mb-4">Newsletter</h4>
+                    <p class="text-sm mb-3">Get our weekly menu updates.</p>
+                    <form id="newsletter-form" class="flex flex-col space-y-3">
+                        <input id="email-input" type="email" placeholder="Your Email" required class="p-3 rounded-lg text-gray-900 border border-gray-700 focus:ring-red-500 focus:border-red-500">
                         <button type="submit" class="bg-red-700 text-white font-semibold py-3 rounded-lg hover:bg-red-600 transition duration-300">Subscribe</button>
                     </form>
+                    <!-- Success Message Display -->
+                    <p id="newsletter-success" class="mt-3 text-sm font-medium text-green-400">
+                        &#x2714; Thanks! You're all set for the next cozy menu.
+                    </p>
                 </div>
 
             </div>
@@ -277,12 +389,390 @@
         </div>
     </footer>
 
+    <!-- DISH DETAIL MODAL -->
+    <div id="dish-modal" class="modal-overlay">
+        <div class="bg-white rounded-xl shadow-2xl max-w-lg w-11/12 md:w-full p-8 relative max-h-[90vh] overflow-y-auto transform scale-100 transition-transform duration-300">
+            <!-- Close Button -->
+            <button onclick="closeModal('dish-modal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- Modal Image Placeholder -->
+            <img id="modal-image" src="" alt="Dish Detail Image" class="w-full h-48 object-cover rounded-lg mb-6 shadow-md">
+            
+            <!-- Modal Content -->
+            <h2 id="modal-title" class="text-3xl font-bold text-red-700 mb-3"></h2>
+            
+            <p id="modal-description" class="text-gray-600 mb-6 border-b pb-4"></p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Ingredients List -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <span class="text-red-500 mr-2">&#x1F373;</span> Key Ingredients
+                    </h3>
+                    <ul id="modal-ingredients" class="list-disc ml-5 text-gray-600 space-y-1">
+                        <!-- List items injected here -->
+                    </ul>
+                </div>
+
+                <!-- Price and Allergens -->
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3 flex items-center">
+                        <span class="text-red-500 mr-2">&#x1F4B0;</span> Details
+                    </h3>
+                    <p class="text-lg font-bold text-red-700 mb-4">Price: <span id="modal-price" class="text-2xl ml-1"></span></p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Potential Allergens:</h4>
+                    <div id="modal-allergens" class="flex flex-wrap gap-2">
+                        <!-- Allergens badges injected here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Button -->
+            <a href="#contact" onclick="closeModal('dish-modal');" class="block w-full text-center mt-8 bg-red-700 text-white font-bold py-3 rounded-full hover:bg-red-800 transition duration-300 smooth-scroll">
+                Add to Cart / Order Now
+            </a>
+        </div>
+    </div>
+    <!-- END DISH DETAIL MODAL -->
+
+    <!-- INFO MODAL -->
+    <div id="info-modal" class="modal-overlay">
+        <div class="bg-white rounded-xl shadow-2xl max-w-sm w-11/12 p-6 relative transform scale-100 transition-transform duration-300 border-t-8 border-red-700">
+            <!-- Close Button -->
+            <button onclick="closeModal('info-modal')" class="absolute top-2 right-2 text-gray-400 hover:text-gray-800 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+
+            <h2 class="text-2xl font-bold text-red-800 mb-3 border-b pb-2">Application Information</h2>
+            
+            <p class="text-gray-600 mb-4 text-sm">
+                This is a mock landing page for "Home Style Dinner," showcasing modern web design using Tailwind CSS.
+            </p>
+            <h3 class="font-semibold text-gray-800 mb-2">Key Features Demonstrated:</h3>
+            <ul class="text-sm text-gray-700 list-disc ml-5 space-y-1">
+                <li>**Responsive Design:** Fully adapts to mobile, tablet, and desktop views.</li>
+                <li>**Real-time Likes:** The Like/Unlike functionality uses **Firebase Firestore** for persistent storage and real-time updates.</li>
+                <li>**User Authentication:** Users are automatically authenticated (anonymously or via custom token) to enable the per-user Like/Unlike logic.</li>
+                <li>**Dynamic UI:** Dish detail modals and form feedback are handled by JavaScript.</li>
+            </ul>
+            <p class="text-xs text-red-500 mt-4">
+                Your current User ID is shown in the footer for identification in the multi-user system.
+            </p>
+            
+            <button onclick="closeModal('info-modal')" class="w-full mt-6 bg-red-700 text-white font-semibold py-2 rounded-lg hover:bg-red-800 transition">
+                Close
+            </button>
+        </div>
+    </div>
+    <!-- END INFO MODAL -->
+
     <!-- Font Awesome (for social icons) - Loaded at the end -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-    <!-- Simple JavaScript for Mobile Menu and Footer Year -->
-    <script>
+    <!-- JavaScript Module for Logic and Firebase Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, runTransaction, increment, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Enable debug logging for Firebase
+        setLogLevel('Debug');
+
+        // --- Global Firebase & Auth Variables ---
+        let db;
+        let auth;
+        let currentUserId = null;
+        let isAuthReady = false;
+
+        // Configuration and App ID from the runtime environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // --- Firestore Paths ---
+        // Public path for the global like count
+        const GLOBAL_STATS_DOC_PATH = `/artifacts/${appId}/public/data/global_stats/like_count`;
+        // Private path for per-user like status
+        const getUserLikeDocPath = (uid) => `/artifacts/${appId}/users/${uid}/user_actions/page_like`;
+
+        // --- Helper Function: Getters ---
+        const getLikeButton = () => document.getElementById('like-button');
+        const getLikeIcon = () => document.getElementById('like-icon');
+        const getLikeText = () => document.getElementById('like-text');
+        const getLikeCountDisplay = () => document.getElementById('like-count-display');
+        const getUserIdDisplay = () => document.getElementById('current-user-id');
+
+        // --- 1. Dish Data (Source of truth for the modal) ---
+        const dishData = {
+            'meatloaf': {
+                title: "Grandma's Classic Meatloaf",
+                description: "A tender blend of ground beef and pork, mixed with savory spices and fresh herbs. Glazed with a tangy, slow-simmered tomato ketchup sauce. This meal is served with creamy mashed potatoes and green beans.",
+                ingredients: ["Ground Beef", "Ground Pork", "Breadcrumbs", "Milk", "Onions", "Fresh Thyme", "Ketchup Glaze"],
+                allergens: ["Gluten", "Dairy", "Egg (in binding)"],
+                price: "$15.99",
+                image: "https://placehold.co/600x400/D2B48C/5A5A5A?text=Classic+Meatloaf"
+            },
+            'potpie': {
+                title: "Buttery Chicken Pot Pie",
+                description: "Our signature dish! Tender pieces of chicken, carrots, celery, and potatoes simmered in a rich, velvety cream sauce, all encased in a perfectly flaky, golden crust.",
+                ingredients: ["Chicken Breast", "Carrots", "Peas", "Cream Sauce", "Butter", "Flaky Pastry Crust"],
+                allergens: ["Gluten", "Dairy"],
+                price: "$14.50",
+                image: "https://placehold.co/600x400/D2B48C/5A5A5A?text=Comfort+Pot+Pie"
+            },
+            'crumble': {
+                title: "Warm Apple Crumble",
+                description: "Sweet and tart Granny Smith apples tossed with cinnamon and sugar, topped with a crunchy, buttery oat crumble. Best served warm with a scoop of vanilla ice cream!",
+                ingredients: ["Granny Smith Apples", "Brown Sugar", "Cinnamon", "Rolled Oats", "Butter"],
+                allergens: ["Gluten"],
+                price: "$7.00",
+                image: "https://placehold.co/600x400/D2B48C/5A5A5A?text=Apple+Crumble+Dessert"
+            }
+        };
+
+        // --- 2. Modal Functions ---
+        window.openModal = function(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        window.closeModal = function(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.style.display = 'none';
+                // Only restore scrolling if no other modal is open
+                const modals = document.querySelectorAll('.modal-overlay');
+                const isAnyModalOpen = Array.from(modals).some(m => m.style.display === 'flex');
+                if (!isAnyModalOpen) {
+                     document.body.style.overflow = '';
+                }
+            }
+        }
+        
+        // --- Dish Detail Modal Specific Function ---
+        window.openDishModal = function(dishId) {
+            const dish = dishData[dishId];
+            if (!dish) return;
+
+            // Populate the dish modal content
+            document.getElementById('modal-title').textContent = dish.title;
+            document.getElementById('modal-description').textContent = dish.description;
+            document.getElementById('modal-price').textContent = dish.price;
+            document.getElementById('modal-image').src = dish.image;
+
+            const ingredientsList = document.getElementById('modal-ingredients');
+            ingredientsList.innerHTML = dish.ingredients.map(item => `<li>${item}</li>`).join('');
+
+            const allergensDiv = document.getElementById('modal-allergens');
+            allergensDiv.innerHTML = dish.allergens.map(allergen => 
+                `<span class="px-3 py-1 text-sm font-semibold rounded-full bg-red-100 text-red-600">${allergen}</span>`
+            ).join('');
+
+            openModal('dish-modal');
+        }
+
+        // --- 3. Firebase Initialization and Authentication ---
+
+        async function setupFirebase() {
+            if (!firebaseConfig) {
+                console.error("Firebase config is missing.");
+                getUserIdDisplay().textContent = "Error: Config Missing";
+                return;
+            }
+
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // Set persistence to local storage so user remains signed in across sessions
+                await setPersistence(auth, browserLocalPersistence);
+
+                await new Promise(resolve => {
+                    // Auth State Change Listener (guarantees auth is ready)
+                    onAuthStateChanged(auth, async (user) => {
+                        if (user) {
+                            currentUserId = user.uid;
+                            getUserIdDisplay().textContent = currentUserId;
+                        } else {
+                            // Sign in anonymously if no user is found
+                            if (initialAuthToken) {
+                                await signInWithCustomToken(auth, initialAuthToken);
+                            } else {
+                                await signInAnonymously(auth);
+                            }
+                            // Note: onAuthStateChanged will fire again with the new user
+                        }
+                        isAuthReady = true;
+                        resolve();
+                    });
+                });
+
+                // Once auth is ready, start real-time data listeners and interaction handlers
+                if (currentUserId) {
+                    subscribeToLikeCount();
+                    getLikeButton().addEventListener('click', handleLikeToggle);
+                } else {
+                    getLikeCountDisplay().textContent = "Please refresh to authenticate.";
+                }
+
+            } catch (error) {
+                console.error("Firebase setup failed:", error);
+                getUserIdDisplay().textContent = `Error: ${error.code || error.message}`;
+            }
+        }
+
+
+        // --- 4. Like Feature Logic ---
+
+        /**
+         * Subscribes to the global like count and updates the UI.
+         * Also checks the current user's like status and updates the button.
+         */
+        function subscribeToLikeCount() {
+            const globalDocRef = doc(db, GLOBAL_STATS_DOC_PATH);
+            const userDocRef = doc(db, getUserLikeDocPath(currentUserId));
+
+            // 4a. Real-time Global Like Count Listener
+            onSnapshot(globalDocRef, (docSnap) => {
+                const likes = docSnap.exists() ? docSnap.data().likes : 0;
+                getLikeCountDisplay().textContent = `${likes} people feel the comfort!`;
+            }, (error) => {
+                console.error("Error subscribing to global likes:", error);
+                getLikeCountDisplay().textContent = "Failed to load likes.";
+            });
+
+            // 4b. Per-User Like Status Listener
+            onSnapshot(userDocRef, (docSnap) => {
+                const liked = docSnap.exists() && docSnap.data().liked === true;
+                updateLikeButtonState(liked);
+            }, (error) => {
+                console.error("Error subscribing to user like status:", error);
+                // Keep the button disabled or show an error state if user data fails
+            });
+        }
+
+        /**
+         * Updates the visual state of the Like/Unlike button.
+         * @param {boolean} liked - true if the user has liked the page.
+         */
+        function updateLikeButtonState(liked) {
+            const button = getLikeButton();
+            const icon = getLikeIcon();
+            const text = getLikeText();
+
+            // Enable the button once the user status is known
+            button.disabled = false;
+
+            if (liked) {
+                // UNLIKE state
+                button.classList.remove('bg-white', 'hover:bg-red-100');
+                button.classList.add('bg-red-700', 'text-white', 'hover:bg-red-800', 'border-red-700');
+                icon.classList.remove('fill-red-700');
+                icon.classList.add('fill-white');
+                text.textContent = 'Unlike';
+            } else {
+                // LIKE state
+                button.classList.remove('bg-red-700', 'text-white', 'hover:bg-red-800', 'border-red-700');
+                button.classList.add('bg-white', 'text-red-700', 'hover:bg-red-100');
+                icon.classList.remove('fill-white');
+                icon.classList.add('fill-red-700');
+                text.textContent = 'Like';
+            }
+            button.setAttribute('data-liked', liked);
+        }
+        
+        /**
+         * Toggles the like status and updates both the user's private data and the global count via a transaction.
+         */
+        async function handleLikeToggle() {
+            if (!isAuthReady || !currentUserId) return;
+
+            const button = getLikeButton();
+            button.disabled = true; // Disable to prevent double-clicking
+
+            const isCurrentlyLiked = button.getAttribute('data-liked') === 'true';
+            const change = isCurrentlyLiked ? -1 : 1; // -1 for Unlike, +1 for Like
+
+            const globalDocRef = doc(db, GLOBAL_STATS_DOC_PATH);
+            const userDocRef = doc(db, getUserLikeDocPath(currentUserId));
+            
+            try {
+                await runTransaction(db, async (transaction) => {
+                    // 1. Update Global Count safely
+                    transaction.set(globalDocRef, { likes: increment(change) }, { merge: true });
+
+                    // 2. Update User Status
+                    if (change === 1) {
+                        // User clicked Like: set private flag to true
+                        transaction.set(userDocRef, { liked: true });
+                    } else {
+                        // User clicked Unlike: remove private flag
+                        transaction.delete(userDocRef);
+                    }
+                });
+
+                // Transaction succeeded, UI will be updated by the onSnapshot listeners
+                console.log(`Successfully toggled like status. Change: ${change}`);
+
+            } catch (e) {
+                console.error("Transaction failed: ", e);
+                // Re-enable the button on failure and maybe show error message
+                button.disabled = false; 
+            }
+        }
+        
+        // --- 5. Main Initialization (on DOMContentLoaded for setup) ---
         document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in the footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Newsletter Form Handling
+            const newsletterForm = document.getElementById('newsletter-form');
+            const newsletterSuccess = document.getElementById('newsletter-success');
+            const emailInput = document.getElementById('email-input');
+
+            newsletterForm.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission
+
+                if (emailInput.checkValidity()) {
+                    newsletterSuccess.classList.add('show');
+                    emailInput.value = '';
+                    setTimeout(() => {
+                        newsletterSuccess.classList.remove('show');
+                    }
+                    , 4000); 
+                }
+            });
+
+            // Smooth Scrolling for all internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId && targetId !== '#') {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                            // Close mobile menu after clicking a link
+                            const mobileMenu = document.getElementById('mobile-menu');
+                            const mobileMenuButton = document.getElementById('mobile-menu-button');
+                            if (mobileMenu.style.display === 'block') {
+                                mobileMenu.style.display = 'none';
+                                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                    }
+                });
+            });
+
             // Mobile Menu Toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -292,10 +782,48 @@
                 mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
                 mobileMenu.style.display = isExpanded ? 'none' : 'block';
             });
-
-            // Set current year in the footer
-            document.getElementById('year').textContent = new Date().getFullYear();
+            
+            // Start Firebase setup
+            setupFirebase();
         });
+        
+        // --- 6. Preloader Handling (on window.load for asset completion) ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            const preloaderLogo = document.getElementById('preloader-logo');
+            const loadingText = document.getElementById('loading-text');
+
+            // Define timing constants in milliseconds
+            const PRE_ANIMATION_DELAY_MS = 3000; // 3 seconds before the shatter starts
+            const SHATTER_ANIMATION_DURATION_MS = 1500; // 1.5 seconds for the shatter/fall animation
+            const FADE_OUT_TRANSITION_MS = 1500; // 1.5 seconds for the final opacity fade-out
+
+            // Update loading text during the wait phase
+            setTimeout(() => { loadingText.textContent = "Warming the oven..."; }, 1000);
+            setTimeout(() => { loadingText.textContent = "Almost ready..."; }, 2000);
+
+
+            // Step 1: Wait for the requested delay (3 seconds)
+            setTimeout(() => {
+                // Step 2: Start the visual "shatter" and "fade-out" animation
+                preloaderLogo.classList.add('loader-shatter');
+                loadingText.classList.add('loading-text-fade');
+
+                // Step 3: Wait for the shatter animation to finish (1.5s)
+                setTimeout(() => {
+                    // Step 4: Start the main preloader fade-out (opacity 0)
+                    preloader.style.opacity = '0';
+
+                    // Step 5: Completely remove the element after the fade transition (1.5s)
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        document.body.style.overflow = ''; // Ensure main scrolling is enabled
+                    }, FADE_OUT_TRANSITION_MS);
+                }, SHATTER_ANIMATION_DURATION_MS);
+
+            }, PRE_ANIMATION_DELAY_MS);
+        });
+
     </script>
 </body>
 </html>
